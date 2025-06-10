@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(120deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.header {
+    background: rgba(255,255,255,0.95);
+    padding: 20px 0;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #ff6b9d;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff6b9d, #f06292);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.back-btn {
+    background: linear-gradient(45deg, #ff6b9d, #f06292);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255,107,157,0.3);
+}
+
+.back-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+}
+
+.gallery {
+    padding: 40px 0;
+}
+
+.gallery-title {
+    text-align: center;
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, #ff6b9d, #f06292);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.photo-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255,107,157,0.2);
+    border: 2px solid rgba(255,107,157,0.1);
+    transition: all 0.3s;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: 0 15px 40px rgba(255,107,157,0.3);
+    border-color: rgba(255,107,157,0.3);
+}

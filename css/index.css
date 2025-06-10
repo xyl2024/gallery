@@ -1,0 +1,349 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 星空背景动画 */
+.stars, .stars2, .stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.stars {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="%23fff" opacity="0.8"/><circle cx="80" cy="40" r="1.5" fill="%23fff" opacity="0.6"/><circle cx="40" cy="80" r="1" fill="%23fff" opacity="0.9"/><circle cx="90" cy="10" r="0.5" fill="%23fff" opacity="0.7"/><circle cx="10" cy="60" r="1.2" fill="%23fff" opacity="0.5"/></svg>') repeat;
+    animation: twinkle 50s linear infinite;
+}
+
+.stars2 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="1" fill="%2366d9ff" opacity="0.6"/><circle cx="70" cy="70" r="1.5" fill="%2366d9ff" opacity="0.4"/><circle cx="50" cy="10" r="0.8" fill="%2366d9ff" opacity="0.8"/></svg>') repeat;
+    animation: twinkle 80s linear infinite reverse;
+}
+
+.stars3 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="60" cy="50" r="1" fill="%23ff6b9d" opacity="0.5"/><circle cx="15" cy="85" r="1.2" fill="%23ff6b9d" opacity="0.7"/></svg>') repeat;
+    animation: twinkle 120s linear infinite;
+}
+
+@keyframes twinkle {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-100vh); }
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 英雄区域 */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(ellipse at center, rgba(102, 217, 255, 0.1) 0%, transparent 70%);
+}
+
+.title {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.title-text {
+    font-size: 4.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #66d9ff, #ff6b9d, #66d9ff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.title-underline {
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #66d9ff, transparent);
+    margin: 20px auto 0;
+    border-radius: 2px;
+    animation: underlineGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes underlineGlow {
+    0% { width: 0%; box-shadow: 0 0 10px rgba(102, 217, 255, 0.5); }
+    100% { width: 80%; box-shadow: 0 0 20px rgba(102, 217, 255, 0.8); }
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    animation: bounce 2s infinite;
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    transform: rotate(45deg);
+    margin-top: 10px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* 导航网格 */
+.gallery-nav {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.nav-card {
+    position: relative;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.nav-card:hover {
+    transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+}
+
+.card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    transition: all 0.4s ease;
+}
+
+.nav-card:hover .card-background {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.card-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    transition: all 0.3s ease;
+}
+
+.card-hover-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+    color: #66d9ff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.nav-card:hover .card-hover-text {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.card-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #66d9ff, #ff6b9d, #66d9ff);
+    border-radius: 22px;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.4s ease;
+    animation: rotate 3s linear infinite;
+}
+
+.nav-card:hover .card-glow {
+    opacity: 0.6;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 特定卡片样式 */
+.nav-card[data-category="life"]:hover .card-title {
+    color: #66d9ff;
+}
+
+.nav-card[data-category="gaming"]:hover .card-title {
+    color: #ff6b9d;
+}
+
+.nav-card[data-category="anime"]:hover .card-title {
+    color: #ff9999;
+}
+
+.nav-card[data-category="art"]:hover .card-title {
+    color: #99ff99;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .title-text {
+        font-size: 3rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+    
+    .nav-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .nav-card {
+        height: 250px;
+    }
+    
+    .card-content {
+        padding: 20px;
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title-text {
+        font-size: 2.5rem;
+    }
+    
+    .hero {
+        padding: 0 20px;
+    }
+    
+    .gallery-nav {
+        padding: 60px 20px;
+    }
+}
