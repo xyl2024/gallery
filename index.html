@@ -18,6 +18,8 @@
             background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);
             overflow: hidden;
             height: 100vh;
+            /* 防止移动端的默认滚动 */
+            touch-action: none;
         }
 
         /* 设置滚动条 */
@@ -31,6 +33,10 @@
             max-width: 45vh;
             max-height: 50vh;
             transition: .5s;
+            /* 防止图片被选中 */
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: none;
         }
 
         .images:hover img {
@@ -96,46 +102,119 @@
         .vertical {
             transform: rotate(90deg) translateZ(-.1px) scale(1.6) translateX(0%) translateY(-3vh);
         }
+
+        /* 移动端优化 */
+        @media (max-width: 768px) {
+            .images img {
+                max-width: 35vh;
+                max-height: 40vh;
+                border-width: 5px;
+            }
+        }
     </style>
 </head>
 <!-- HTML部分 -->
 
 <body>
-    <div class="shell">
+    <div class="shell" id="shell">
         <div class="images slower">
-            <img src="./img/1.jpg">
+            <img src="https://picsum.photos/400/600?random=1" alt="Image 1">
         </div>
         <div class="images faster">
-            <img src="./img/2.jpg">
+            <img src="https://picsum.photos/400/600?random=2" alt="Image 2">
         </div>
         <div class="images vertical">
-            <img src="./img/3.jpg">
+            <img src="https://picsum.photos/400/600?random=3" alt="Image 3">
         </div>
         <div class="images slower-down">
-            <img src="./img/4.jpg">
+            <img src="https://picsum.photos/400/600?random=4" alt="Image 4">
         </div>
         <div class="images">
-            <img src="./img/5.jpg">
+            <img src="https://picsum.photos/400/600?random=5" alt="Image 5">
         </div>
         <div class="images slower">
-            <img src="./img/6.jpg">
+            <img src="https://picsum.photos/400/600?random=6" alt="Image 6">
         </div>
         <div class="images faster1">
-            <img src="./img/7.jpg">
+            <img src="https://picsum.photos/400/600?random=7" alt="Image 7">
         </div>
         <div class="images slower1">
-            <img src="./img/8.jpg">
+            <img src="https://picsum.photos/400/600?random=8" alt="Image 8">
         </div>
         <div class="images">
-            <img src="./img/9.jpg">
+            <img src="https://picsum.photos/400/600?random=9" alt="Image 9">
         </div>
         <div class="images slower">
-            <img src="./img/10.jpg">
+            <img src="https://picsum.photos/400/600?random=10" alt="Image 10">
         </div>
         <div class="images faster">
-            <img src="./img/11.jpg">
+            <img src="https://picsum.photos/400/600?random=11" alt="Image 11">
         </div>
     </div>
+
+    <script>
+        // 移动端触摸支持
+        const shell = document.getElementById('shell');
+        let startY = 0;
+        let currentY = 0;
+        let scrollTop = 0;
+        let isScrolling = false;
+
+        // 触摸开始
+        shell.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            currentY = startY;
+            scrollTop = shell.scrollTop;
+            isScrolling = true;
+            e.preventDefault();
+        }, { passive: false });
+
+        // 触摸移动
+        shell.addEventListener('touchmove', (e) => {
+            if (!isScrolling) return;
+            
+            currentY = e.touches[0].clientY;
+            const deltaY = startY - currentY;
+            
+            // 因为容器被旋转了90度，所以垂直滑动对应横向移动
+            shell.scrollTop = scrollTop + deltaY;
+            e.preventDefault();
+        }, { passive: false });
+
+        // 触摸结束
+        shell.addEventListener('touchend', (e) => {
+            isScrolling = false;
+            e.preventDefault();
+        }, { passive: false });
+
+        // 鼠标滚轮支持（保持原有功能）
+        shell.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            shell.scrollTop += e.deltaY;
+        }, { passive: false });
+
+        // 键盘支持
+        document.addEventListener('keydown', (e) => {
+            const scrollAmount = 100;
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    shell.scrollTop -= scrollAmount;
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    e.preventDefault();
+                    shell.scrollTop += scrollAmount;
+                    break;
+            }
+        });
+
+        // 防止默认的触摸行为
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
     <!-- bilibili-山羊の前端小窝 -->
 </body>
 
